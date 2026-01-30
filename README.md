@@ -40,7 +40,7 @@ The project uses four text files:
 ## Installation
 ```bash
 # Clone the repository
-git clone https://github.com/YOUR-USERNAME/REPO-NAME.git
+git clone https://github.com/Nusaibah-Rawnak/linear-text-classification.git
 cd REPO-NAME
 
 # Install required packages
