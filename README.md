@@ -66,6 +66,8 @@ The script will:
 
 ## Results Summary
 
+Detailed results are available in the [project report](report.pdf).
+
 The experiments reveal that:
 - **Task A (Sentiment)**: Unigrams with basic preprocessing achieve strong performance, as sentiment is captured by individual word semantics
 - **Task B (Alliteration)**: Bigrams with TF-IDF provide optimal performance, as alliteration patterns require capturing adjacent word relationships
@@ -74,6 +76,7 @@ The experiments reveal that:
 ```
 .
 ├── pa1.py              # Main implementation file
+├── report.pdf          # Detailed analysis and results
 ├── synsem0.txt         # Negative sentiment data
 ├── synsem1.txt         # Positive sentiment data
 ├── morphphon0.txt      # Non-alliterative data
