@@ -1,102 +1,83 @@
 # Linear Text Classification: Semantics vs. Spelling
 
-A comparative study of linear classifiers for distinguishing semantic features (sentiment) from morphophonological features (alliteration) in text data.
+A comparative study of linear classifiers for distinguishing semantic features (sentiment) from morphophonological features (alliteration) in text data. Includes a live interactive demo powered by a FastAPI backend.
+
+🔗 [Live Demo](https://nlp-classifier-frontend.vercel.app) · [Full Report](report.pdf)
 
 ## Project Overview
 
 This project implements and evaluates **Logistic Regression** and **Linear SVM** classifiers on two distinct text classification tasks:
 
-- **Task A (Semantics)**: Binary sentiment classification (positive vs. negative reviews)
+- **Task A (Semantics)**: Binary sentiment classification (positive vs. negative sentences)
 - **Task B (Spelling/Phonology)**: Alliteration detection (alliterative vs. non-alliterative sentences)
 
 The goal is to explore how different preprocessing techniques and feature representations affect classification performance across semantic and spelling-based tasks.
 
-## Features
+## Results
 
-### Preprocessing Techniques
-- Lowercase normalization
-- Stopword removal (English)
-- TF-IDF weighting
-- N-gram extraction (unigrams and bigrams)
+| Task | Best Config | Test Accuracy |
+|------|-------------|---------------|
+| Task A — Sentiment | Baseline + LR/SVM | 70.83% |
+| Task B — Alliteration | Baseline + LR/SVM | 93.75% |
 
-### Classifiers
-- **Logistic Regression**: Probabilistic linear classifier with L2 regularization
-- **Linear SVM**: Maximum-margin linear classifier
+The 23-percentage-point gap reveals that linear classifiers excel at explicit surface-form patterns (alliteration) but face greater challenges with semantic understanding (sentiment).
 
-### Evaluation
-- 70/30 stratified train-test split
-- 5-fold cross-validation on training set
-- Accuracy metrics reported for both CV and test sets
+## Key Findings
+
+1. **Baseline preprocessing performed best for both tasks** — lowercasing, stopword removal, and TF-IDF all degraded performance
+2. **Alliteration is more linearly separable than sentiment** — repeated initial letters create strong, consistent feature signals
+3. **Both classifiers perform comparably** — Logistic Regression and Linear SVM achieved identical best accuracies
 
 ## Dataset
 
-The project uses four text files:
-
-- `synsem0.txt` - Negative sentiment examples (80 sentences)
-- `synsem1.txt` - Positive sentiment examples (80 sentences)
-- `morphphon0.txt` - Non-alliterative sentences (80 sentences)
-- `morphphon1.txt` - Alliterative sentences (80 sentences)
+- `synsem0.txt` — Negative sentiment examples (80 sentences)
+- `synsem1.txt` — Positive sentiment examples (80 sentences)
+- `morphphon0.txt` — Non-alliterative sentences (80 sentences)
+- `morphphon1.txt` — Alliterative sentences (80 sentences)
 
 ## Installation
+
 ```bash
-# Clone the repository
 git clone https://github.com/Nusaibah-Rawnak/linear-text-classification.git
-cd REPO-NAME
+cd linear-text-classification
 
-# Install required packages
 pip install numpy scikit-learn nltk
-
-# Download NLTK stopwords (run in Python)
 python -c "import nltk; nltk.download('stopwords')"
 ```
 
 ## Usage
 
-Run the main script to execute both classification tasks:
+Run experiments:
 ```bash
 python pa1.py
 ```
 
-The script will:
-1. Load both datasets
-2. Run experiments with different preprocessing configurations
-3. Test both classifiers (Logistic Regression and Linear SVM)
-4. Report cross-validation and test accuracy for each configuration
-5. Print a summary of best results
-
-## Results Summary
-
-Detailed results are available in the [project report](report.pdf).
-
-The experiments reveal that:
-- **Task A (Sentiment)**: Unigrams with basic preprocessing achieve strong performance, as sentiment is captured by individual word semantics
-- **Task B (Alliteration)**: Bigrams with TF-IDF provide optimal performance, as alliteration patterns require capturing adjacent word relationships
+Run the API locally:
+```bash
+pip install fastapi uvicorn
+uvicorn main:app --reload
+```
 
 ## Project Structure
 ```
 .
-├── pa1.py              # Main implementation file
-├── report.pdf          # Detailed analysis and results
+├── pa1.py              # Experiment code (preprocessing, training, evaluation)
+├── main.py             # FastAPI backend for live demo
+├── requirements.txt    # Backend dependencies
+├── render.yaml         # Render deployment config
+├── report.pdf          # Full research report
 ├── synsem0.txt         # Negative sentiment data
 ├── synsem1.txt         # Positive sentiment data
 ├── morphphon0.txt      # Non-alliterative data
 ├── morphphon1.txt      # Alliterative data
-└── README.md           # This file
+└── README.md
 ```
 
-## Key Findings
+## Tech Stack
 
-1. **Feature importance varies by task**: Bigrams are crucial for spelling-based tasks but less important for semantic tasks
-2. **Preprocessing impact differs**: Stopword removal helps sentiment classification but may hurt alliteration detection
-3. **Both classifiers perform comparably**: Logistic Regression and Linear SVM achieve similar accuracy across both tasks
-
-## Dependencies
-
-- Python 3.7+
-- NumPy
-- scikit-learn
-- NLTK
-
+- **Research**: Python, scikit-learn, NLTK, NumPy
+- **Backend**: FastAPI, uvicorn (deployed on Render)
+- **Frontend**: React, TypeScript, Tailwind, Recharts (deployed on Vercel)
 
 ## Author
 
